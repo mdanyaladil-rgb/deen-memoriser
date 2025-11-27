@@ -24,3 +24,137 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Page turn / focus animation */
+@keyframes qm-page-turn {
+  0% {
+    transform: perspective(1200px) rotateY(-4deg) translateY(6px);
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(1200px) rotateY(0deg) translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0deg) translateY(0px);
+    opacity: 1;
+  }
+}
+
+.mushaf-page[data-reading="on"] {
+  animation: qm-page-turn 0.55s ease-out;
+  transform-origin: left center;
+}
+
+/* Ayah fade-in as you load/scroll */
+@keyframes qm-ayah-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ayah-animate {
+  opacity: 0;
+  animation: qm-ayah-fade 0.35s ease-out forwards;
+}
+
+/* Verse bubble hover pulse */
+.ayah-bubble {
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.ayah-bubble:hover {
+  transform: scale(1.06);
+  box-shadow: 0 10px 25px rgba(15, 118, 110, 0.35);
+}
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply staggered fade-up to hero elements */
+.hero-badge-anim {
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hero-title-anim {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hero-subtitle-anim {
+  animation: heroFadeUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hero-buttons-anim {
+  animation: heroFadeUp 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hero-stats-anim {
+  animation: heroFadeUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Preview card slides in from the right on load */
+.hero-preview-anim {
+  animation: heroSlideInRight 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Rotating word smooth transition */
+.hero-rotate-word {
+  display: inline-block;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.hero-rotate-word-enter {
+  opacity: 0;
+  transform: translateY(6px);
+}
+@keyframes heroHighlightSweep {
+  0% {
+    background-size: 0% 60%;
+  }
+  100% {
+    background-size: 100% 60%;
+  }
+}
+
+.hero-highlight {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.15em;
+  background-image: linear-gradient(
+    to right,
+    rgba(16, 185, 129, 0.18),
+    rgba(16, 185, 129, 0.4),
+    rgba(16, 185, 129, 0.18)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  background-size: 0% 60%;
+  animation: heroHighlightSweep 0.9s ease-out forwards;
+}
+
+.hero-highlight-delay {
+  animation-delay: 0.25s;
+}
