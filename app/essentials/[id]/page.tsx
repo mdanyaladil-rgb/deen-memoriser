@@ -1,27 +1,13 @@
 // app/essentials/[id]/page.tsx
-import type { Metadata } from "next";
 import Link from "next/link";
 import { KEY_AYAT } from "@/data/keyAyat";
 import AyahActionsClient from "./AyahActionsClient";
 
-type Props = {
+export default function EssentialAyahPage({
+  params,
+}: {
   params: { id: string };
-};
-
-export function generateMetadata({ params }: Props): Metadata {
-  const ayah = KEY_AYAT.find((x) => x.id === params.id);
-  if (!ayah) {
-    return {
-      title: "Qur’an Essentials — Ayah not found",
-    };
-  }
-  return {
-    title: `${ayah.label} — Qur’an Essentials`,
-    description: ayah.tagline,
-  };
-}
-
-export default function EssentialAyahPage({ params }: Props) {
+}) {
   const ayah = KEY_AYAT.find((x) => x.id === params.id);
 
   // Soft not-found
@@ -42,11 +28,8 @@ export default function EssentialAyahPage({ params }: Props) {
   }
 
   const useLine =
-    ayah.useTags.length > 0
-      ? ayah.useTags.join(" · ")
-      : "General reminder";
+    ayah.useTags.length > 0 ? ayah.useTags.join(" · ") : "General reminder";
 
-  // What gets copied when the user hits "Copy"
   const copyText = [
     ayah.arabic && ayah.arabic.trim().length > 0 ? ayah.arabic : null,
     ayah.transliteration && ayah.transliteration.trim().length > 0
@@ -103,7 +86,7 @@ export default function EssentialAyahPage({ params }: Props) {
         </div>
 
         <div className="space-y-4">
-          {/* Arabic – later we’ll plug in real text */}
+          {/* Arabic placeholder */}
           <div className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4 text-center">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-800">
               Arabic text
@@ -132,12 +115,12 @@ export default function EssentialAyahPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Actions (copy, share, memorise) */}
+      {/* Actions */}
       <section className="mb-8">
         <AyahActionsClient copyText={copyText} />
       </section>
 
-      {/* Context + Apply Today */}
+      {/* Context + Reminder */}
       <section className="space-y-4 text-sm">
         <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-4">
           <h2 className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-700">
